@@ -1,3 +1,6 @@
+import json
+
+
 class Task:
     def __init__(self, id, description, status, created_at, last_modified_at):
         self.id = id
@@ -13,4 +16,7 @@ class Task:
         pass
 
     def mark_in_transit():
+        pass
+
+    def last_modified_log():
         pass
