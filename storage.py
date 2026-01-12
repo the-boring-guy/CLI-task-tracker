@@ -1,5 +1,4 @@
 import json
-import os
 
 
 STORAGE_FILE = "storage.json"
