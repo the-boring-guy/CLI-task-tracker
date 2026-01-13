@@ -8,21 +8,22 @@ STORAGE_FILE = "storage.json"
 def load_tasks():
     try:
         with open(STORAGE_FILE, 'r') as file:
-            content = json.load(file)
-            return content
+            task_list = json.load(file)
+            return task_list
     except FileNotFoundError:
         return []
     except json.JSONDecodeError:
         return []
 
 
-def add_task():
+def save_tasks(task_list):
+    with open(STORAGE_FILE, 'w') as file:
+        json.dump(task_list, file)
+
+
+def add_task(task):
     pass
 
 
-def remove_task():
-    pass
-
-
-def save_tasks():
+def remove_task(task):
     pass
