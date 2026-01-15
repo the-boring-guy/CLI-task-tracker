@@ -1,6 +1,3 @@
-import json
-
-
 class Task:
     def __init__(self, id, name, description, status, created_at, last_modified_at):
         self.id = id
