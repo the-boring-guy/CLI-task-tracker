@@ -38,4 +38,17 @@ def add_task(task_name, task_description):
 
 
 def remove_task(task_id):
-    pass
+    task_dictionary = load_tasks()
+    task_list = list(task_dictionary.get("tasks"))
+    required_task = None
+    for task in task_list:
+        id_of_task = task.get("id")
+        if id_of_task == task_id:
+            required_task = task
+            break
+    if required_task == None:
+        return False
+    else:
+        task_list.remove(required_task)
+        task_dictionary.update({"tasks": task_list})
+        save_tasks(task_dictionary)
