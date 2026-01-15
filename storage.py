@@ -59,3 +59,18 @@ def remove_task(task_id):
         task_dictionary.update({"tasks": task_list})
         save_tasks(task_dictionary)
         return True
+
+
+def update_field(task_id, updation_field, new_value):
+    task_dictionary = load_tasks()
+    task_list = task_dictionary.get("tasks")
+    required_task = find_task(task_list, task_id)
+    now = utils.get_current_time()
+    if required_task == None:
+        return False
+    else:
+        required_task.update(
+            {updation_field: new_value, "last_modified_at": now})
+        task_dictionary.update({"tasks": task_list})
+        save_tasks(task_dictionary)
+        return True
