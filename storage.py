@@ -63,7 +63,7 @@ def remove_task(task_id):
 
 def update_field(task_id, updation_field, new_value):
     task_dictionary = load_tasks()
-    task_list = task_dictionary.get("tasks")
+    task_list = list(task_dictionary.get("tasks"))
     required_task = find_task(task_list, task_id)
     now = utils.get_current_time()
     if required_task == None:
@@ -74,3 +74,17 @@ def update_field(task_id, updation_field, new_value):
         task_dictionary.update({"tasks": task_list})
         save_tasks(task_dictionary)
         return True
+
+
+def list_tasks():
+    task_dictionary = load_tasks()
+    task_list = list(task_dictionary.get("tasks"))
+    return task_list
+
+
+def filter_by_status(task_status):
+    task_dictionary = load_tasks()
+    task_list = task_dictionary.get("tasks")
+    filtered_tasks = [task for task in task_list if task.get(
+        "status") == task_status]
+    return filtered_tasks
