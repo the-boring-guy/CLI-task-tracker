@@ -26,3 +26,12 @@ def print_task(task):
     print(f"Task created at = {task.get('created_at')}")
     print(f"Last modified at = {task.get('last_modified_at')}")
     print('**********************')
+
+
+def get_user_input(what):
+    while True:
+        user_input = input(f"Enter {what}: ").strip()
+        if user_input == '':
+            print("INVALID INPUT!!!! INPUT CANNOT BE EMPTY....")
+        else:
+            return user_input

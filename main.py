@@ -3,6 +3,7 @@ import storage
 
 
 VALID_COMMANDS = ('add', 'remove', 'update', 'list', 'filter')
+VALID_STATUS = ('NOT_STARTED', 'ONGOING', 'COMPLETED')
 
 
 def show_menu():
@@ -50,7 +51,30 @@ def show_task_list():
             utils.print_task(task)
 
 
+def get_input_add_task():
+    task_name = utils.get_user_input("task name")
+    task_description = utils.get_user_input("task description")
+    return task_name, task_description
+
+
 def add_task():
+    task_name, task_description = get_input_add_task()
+    storage.add_task(task_name, task_description)
+
+
+def get_input_update_field():
+    pass
+
+
+def update_field():
+    pass
+
+
+def remove_task():
+    pass
+
+
+def filter_tasks():
     pass
 
 
