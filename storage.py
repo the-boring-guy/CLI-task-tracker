@@ -27,7 +27,7 @@ def add_task(task_name, task_description):
     last_id = task_dictionary.get("last_id")
     task_created_at = utils.get_current_time()
     task_id = last_id + 1
-    task_status = "NOT_STARTED"
+    task_status = "NOT STARTED"
     task = {"id": task_id, "name": task_name, "description": task_description,
             "status": task_status, "created_at": task_created_at, "last_modified_at": task_created_at}
     task_list.append(task)
