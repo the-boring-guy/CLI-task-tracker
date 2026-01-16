@@ -90,7 +90,7 @@ def list_tasks():
 
 def filter_by_status(task_status):
     task_dictionary = load_tasks()
-    task_list = task_dictionary.get("tasks")
+    task_list = list(task_dictionary.get("tasks"))
     filtered_tasks = [task for task in task_list if task.get(
         "status") == task_status]
     return filtered_tasks
