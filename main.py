@@ -40,11 +40,25 @@ def get_task_id():
                 print("INVALID INPUT!!!! TASK LINKED TO THIS ID DOES NOT EXIST....")
 
 
+def show_task_list():
+    print('-------------Task List---------------')
+    task_list = storage.list_tasks()
+    if task_list == []:
+        print("NO TASKS FOUND!!!! PLEASE ADD TASKS TO VIEW....")
+    else:
+        for task in task_list:
+            utils.print_task(task)
+
+
+def add_task():
+    pass
+
+
 def main():
     print('---------------Welcome---------------')
     print('-------------------------------------')
     show_menu()
-    get_command()
+    user_command = get_command()
 
 
 if __name__ == "__main__":

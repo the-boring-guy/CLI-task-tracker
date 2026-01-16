@@ -16,3 +16,13 @@ def check_natural_number(num):
             return True
     except ValueError:
         return False
+
+
+def print_task(task):
+    print(f"Task id = {task.get('id')}")
+    print(f"Task name = {task.get('name')}")
+    print(f"Task status = {task.get('status')}")
+    print(f"Task description = {task.get('description')}")
+    print(f"Task created at = {task.get('created_at')}")
+    print(f"Last modified at = {task.get('last_modified_at')}")
+    print('**********************')
