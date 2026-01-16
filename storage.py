@@ -48,6 +48,12 @@ def find_task(task_list, task_id):
     return None
 
 
+def validate_task_id(task_id):
+    task_dictionary = load_tasks()
+    task_list = list(task_dictionary.get("tasks"))
+    return find_task(task_list, task_id) is not None
+
+
 def remove_task(task_id):
     task_dictionary = load_tasks()
     task_list = list(task_dictionary.get("tasks"))
