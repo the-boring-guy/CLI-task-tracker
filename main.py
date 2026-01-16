@@ -15,20 +15,36 @@ def show_menu():
 
 
 def get_command():
-    command = input(
-        "Enter a menu option to continue(q to quit): ").strip().lower()
-    if command in VALID_COMMANDS:
-        return command
-    else:
-        print("Not a valid command!!!!Please try again....")
+    while True:
         command = input(
             "Enter a menu option to continue(q to quit): ").strip().lower()
+        if command == 'q':
+            return command
+        elif command not in VALID_COMMANDS:
+            print("INVALID COMMAND!!!! PLEASE TRY AGAIN....")
+        else:
+            return command
+
+
+def get_task_id():
+    while True:
+        task_id = input("Enter the task id(q to quit): ").strip().lower()
+        if task_id == 'q':
+            return task_id
+        elif utils.check_natural_number(task_id) is False:
+            print("INVALID INPUT!!!! TASK ID MUST BE A NATURAL NUMBER....")
+        else:
+            if storage.validate_task_id(task_id):
+                return task_id
+            else:
+                print("INVALID INPUT!!!! TASK LINKED TO THIS ID DOES NOT EXIST....")
 
 
 def main():
     print('---------------Welcome---------------')
     print('-------------------------------------')
     show_menu()
+    get_command()
 
 
 if __name__ == "__main__":
