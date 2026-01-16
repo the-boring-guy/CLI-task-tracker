@@ -3,7 +3,7 @@ import storage
 
 
 VALID_COMMANDS = ('add', 'remove', 'update', 'list', 'filter')
-VALID_STATUS = ('NOT_STARTED', 'ONGOING', 'COMPLETED')
+VALID_STATUS = ('NOT STARTED', 'ONGOING', 'COMPLETED')
 
 
 def show_menu():
@@ -62,20 +62,31 @@ def add_task():
     storage.add_task(task_name, task_description)
 
 
-def get_input_update_field():
-    pass
-
-
-def update_field():
-    pass
-
-
 def remove_task():
-    pass
+    task_id = get_task_id()
+    storage.remove_task(task_id)
+
+
+def get_valid_status():
+    while True:
+        task_status = input("Enter task status(q to quit): ").strip().upper()
+        if task_status in VALID_STATUS:
+            return task_status
+        elif task_status.lower() == 'q':
+            return task_status
+        else:
+            print("INVALID STATUS!!!! PLEASE ENTER VALID STATUS....")
 
 
 def filter_tasks():
-    pass
+    task_status = get_valid_status()
+    filtered_tasks = storage.filter_by_status(task_status)
+    if filtered_tasks == []:
+        print(
+            f"NO TASKS MARKED AS '{task_status}' FOUND!!!! PLEASE TRY AGAIN OR VIEW ALL TASKS LIST....")
+    else:
+        for task in filtered_tasks:
+            utils.print_task(task)
 
 
 def main():
@@ -86,4 +97,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    get_valid_status()
