@@ -30,7 +30,7 @@ def print_task(task):
 
 def get_user_input(what):
     while True:
-        user_input = input(f"Enter {what}: ").strip()
+        user_input = input(f"Enter {what}(q to quit): ").strip()
         if user_input == '':
             print("INVALID INPUT!!!! INPUT CANNOT BE EMPTY....")
         else:
