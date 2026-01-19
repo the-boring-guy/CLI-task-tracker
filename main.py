@@ -22,7 +22,10 @@ def get_command():
         if command == 'q':
             return command
         elif command not in VALID_COMMANDS:
-            print("INVALID COMMAND!!!! PLEASE TRY AGAIN....")
+            print(
+                "INVALID COMMAND!!!! PLEASE ENTER VALID COMMANDS FROM THE ONES SHOWN BELOW....")
+            for command in VALID_COMMANDS:
+                print(command)
         else:
             return command
 
@@ -75,7 +78,10 @@ def get_valid_status():
         elif task_status.lower() == 'q':
             return task_status
         else:
-            print("INVALID STATUS!!!! PLEASE ENTER VALID STATUS....")
+            print(
+                "INVALID STATUS!!!! PLEASE ENTER VALID STATUS OUT OF THE ONES SHOWN BELOW....")
+            for status in VALID_STATUS:
+                print(status)
 
 
 def filter_tasks():
@@ -89,12 +95,41 @@ def filter_tasks():
             utils.print_task(task)
 
 
+def get_input_update_field():
+    task_field = utils.get_user_input("field to be updated")
+    new_value = utils.get_user_input("new value of selected field")
+    return task_field, new_value
+
+
+def update_status():
+    task_id = get_task_id()
+    new_status = get_valid_status()
+    storage.update_field(task_id, "status", new_status)
+
+
+def update_other_field():
+    task_id = get_task_id()
+    updation_field, new_value = get_input_update_field()
+    storage.update_field(task_id, updation_field, new_value)
+
+
 def main():
+    is_running = True
     print('---------------Welcome---------------')
     print('-------------------------------------')
-    show_menu()
-    user_command = get_command()
+    while is_running:
+        show_menu()
+        user_command = get_command()
+        match user_command:
+            case 'add':
+                add_task()
+            case 'remove':
+                remove_task()
+            case 'list':
+                show_task_list()
+            case 'filter':
+                filter_tasks()
 
 
 if __name__ == "__main__":
-    get_valid_status()
+    main()
