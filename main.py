@@ -5,6 +5,7 @@ import storage
 VALID_COMMANDS = ('menu', 'add', 'remove', 'update',
                   'list', 'filter', 'change')
 VALID_STATUS = ('NOT STARTED', 'ONGOING', 'COMPLETED')
+VALID_FIELD = ('name', 'description')
 
 
 def show_menu():
@@ -69,6 +70,7 @@ def add_task():
         return False
     else:
         storage.add_task(task_name, task_description)
+        return True
 
 
 def remove_task():
@@ -77,6 +79,7 @@ def remove_task():
         return False
     else:
         storage.remove_task(task_id)
+        return True
 
 
 def get_valid_status():
@@ -105,12 +108,20 @@ def filter_tasks():
         else:
             for task in filtered_tasks:
                 utils.print_task(task)
+            return True
 
 
 def get_input_update_field():
-    task_field = utils.get_user_input("field to be updated")
-    new_value = utils.get_user_input("new value of selected field")
-    return task_field, new_value
+    while True:
+        task_field = utils.get_user_input("field to be updated")
+        new_value = utils.get_user_input("new value of selected field")
+        if task_field not in VALID_FIELD:
+            print(
+                "INVALID FIELD NAME!!!! PLEASE ENTER A VALID FIELD NAME FROM THE ONES SHOWN BELOW....")
+            for field_name in VALID_FIELD:
+                print(field_name)
+        else:
+            return task_field, new_value
 
 
 def update_status():
@@ -120,6 +131,7 @@ def update_status():
         return False
     else:
         storage.update_field(task_id, "status", new_status)
+        return True
 
 
 def update_other_field():
@@ -129,6 +141,7 @@ def update_other_field():
         return False
     else:
         storage.update_field(task_id, updation_field, new_value)
+        return True
 
 
 def main():
