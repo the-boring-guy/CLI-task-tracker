@@ -1,3 +1,4 @@
 .DS_Store
 __pycache__/storage.cpython-313.pyc
 __pycache__/utils.cpython-313.pyc
+.venv/
