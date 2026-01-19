@@ -18,7 +18,7 @@ def load_tasks():
 
 def save_tasks(task_dictionary):
     with open(STORAGE_FILE, 'w') as file:
-        json.dump(task_dictionary, file)
+        json.dump(task_dictionary, file, indent=4)
 
 
 def add_task(task_name, task_description):
