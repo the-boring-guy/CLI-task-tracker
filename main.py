@@ -42,7 +42,7 @@ def get_task_id():
             print("INVALID INPUT!!!! TASK ID MUST BE A NATURAL NUMBER....")
         else:
             if storage.validate_task_id(task_id):
-                return task_id
+                return int(task_id)
             else:
                 print("INVALID INPUT!!!! TASK LINKED TO THIS ID DOES NOT EXIST....")
 
@@ -65,7 +65,7 @@ def get_input_add_task():
 
 def add_task():
     task_name, task_description = get_input_add_task()
-    if task_name or task_description is 'q':
+    if task_name == 'q' or task_description == 'q':
         return False
     else:
         storage.add_task(task_name, task_description)
@@ -73,7 +73,7 @@ def add_task():
 
 def remove_task():
     task_id = get_task_id()
-    if task_id is 'q':
+    if task_id == 'q':
         return False
     else:
         storage.remove_task(task_id)
@@ -95,7 +95,7 @@ def get_valid_status():
 
 def filter_tasks():
     task_status = get_valid_status()
-    if task_status is 'q':
+    if task_status == 'q':
         return False
     else:
         filtered_tasks = storage.filter_by_status(task_status)
@@ -116,7 +116,7 @@ def get_input_update_field():
 def update_status():
     task_id = get_task_id()
     new_status = get_valid_status()
-    if task_id or new_status is 'q':
+    if task_id == 'q' or new_status == 'q':
         return False
     else:
         storage.update_field(task_id, "status", new_status)
@@ -125,7 +125,7 @@ def update_status():
 def update_other_field():
     task_id = get_task_id()
     updation_field, new_value = get_input_update_field()
-    if task_id or updation_field is 'q':
+    if task_id == 'q' or updation_field == 'q':
         return False
     else:
         storage.update_field(task_id, updation_field, new_value)
@@ -138,7 +138,7 @@ def main():
     show_menu()
     while is_running:
         user_command = get_command()
-        if user_command is 'q':
+        if user_command == 'q':
             is_running = False
         else:
             match user_command:
