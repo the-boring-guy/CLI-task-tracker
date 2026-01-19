@@ -2,17 +2,20 @@ import utils
 import storage
 
 
-VALID_COMMANDS = ('add', 'remove', 'update', 'list', 'filter')
+VALID_COMMANDS = ('menu', 'add', 'remove', 'update',
+                  'list', 'filter', 'change')
 VALID_STATUS = ('NOT STARTED', 'ONGOING', 'COMPLETED')
 
 
 def show_menu():
     print('----------------Menu-----------------')
-    print('1. "add"- to add tasks')
-    print('2. "remove"- to remove tasks')
-    print('3. "update"- to update tasks')
-    print('4. "list"- to see all tasks in list form')
-    print('5. "filter"- to filter tasks by status')
+    print('1. "menu"- to show main menu')
+    print('2. "add"- to add tasks')
+    print('3. "remove"- to remove tasks')
+    print('4. "update"- to update task status')
+    print('5. "list"- to see all tasks in list form')
+    print('6. "filter"- to filter tasks by status')
+    print('7. "change"- to change task particulars like name or description')
 
 
 def get_command():
@@ -62,12 +65,18 @@ def get_input_add_task():
 
 def add_task():
     task_name, task_description = get_input_add_task()
-    storage.add_task(task_name, task_description)
+    if task_name or task_description is 'q':
+        return False
+    else:
+        storage.add_task(task_name, task_description)
 
 
 def remove_task():
     task_id = get_task_id()
-    storage.remove_task(task_id)
+    if task_id is 'q':
+        return False
+    else:
+        storage.remove_task(task_id)
 
 
 def get_valid_status():
@@ -86,13 +95,16 @@ def get_valid_status():
 
 def filter_tasks():
     task_status = get_valid_status()
-    filtered_tasks = storage.filter_by_status(task_status)
-    if filtered_tasks == []:
-        print(
-            f"NO TASKS MARKED AS '{task_status}' FOUND!!!! PLEASE TRY AGAIN OR VIEW ALL TASKS LIST....")
+    if task_status is 'q':
+        return False
     else:
-        for task in filtered_tasks:
-            utils.print_task(task)
+        filtered_tasks = storage.filter_by_status(task_status)
+        if filtered_tasks == []:
+            print(
+                f"NO TASKS MARKED AS '{task_status}' FOUND!!!! PLEASE TRY AGAIN OR VIEW ALL TASKS LIST....")
+        else:
+            for task in filtered_tasks:
+                utils.print_task(task)
 
 
 def get_input_update_field():
@@ -104,31 +116,56 @@ def get_input_update_field():
 def update_status():
     task_id = get_task_id()
     new_status = get_valid_status()
-    storage.update_field(task_id, "status", new_status)
+    if task_id or new_status is 'q':
+        return False
+    else:
+        storage.update_field(task_id, "status", new_status)
 
 
 def update_other_field():
     task_id = get_task_id()
     updation_field, new_value = get_input_update_field()
-    storage.update_field(task_id, updation_field, new_value)
+    if task_id or updation_field is 'q':
+        return False
+    else:
+        storage.update_field(task_id, updation_field, new_value)
 
 
 def main():
     is_running = True
     print('---------------Welcome---------------')
     print('-------------------------------------')
+    show_menu()
     while is_running:
-        show_menu()
         user_command = get_command()
-        match user_command:
-            case 'add':
-                add_task()
-            case 'remove':
-                remove_task()
-            case 'list':
-                show_task_list()
-            case 'filter':
-                filter_tasks()
+        if user_command is 'q':
+            is_running = False
+        else:
+            match user_command:
+                case 'add':
+                    continue_running = add_task()
+                    if continue_running is False:
+                        is_running = False
+                case 'remove':
+                    continue_running = remove_task()
+                    if continue_running is False:
+                        is_running = False
+                case 'list':
+                    show_task_list()
+                case 'filter':
+                    continue_running = filter_tasks()
+                    if continue_running is False:
+                        is_running = False
+                case 'update':
+                    continue_running = update_status()
+                    if continue_running is False:
+                        is_running = False
+                case 'menu':
+                    show_menu()
+                case 'change':
+                    continue_running = update_other_field()
+                    if continue_running is False:
+                        is_running = False
 
 
 if __name__ == "__main__":
